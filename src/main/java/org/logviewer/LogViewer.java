@@ -8,7 +8,7 @@ import com.intellij.ui.OnePixelSplitter;
 import org.logviewer.entity.Log;
 import org.logviewer.entity.LogTag;
 import org.logviewer.filter.FilterBuilder;
-import org.logviewer.filter.LogNameFilter;
+import org.logviewer.filter.LogNamesFilter;
 import org.logviewer.filter.LogQueryFilter;
 import org.logviewer.listener.LogListener;
 import org.logviewer.listener.LogNameListener;
@@ -44,7 +44,7 @@ public class LogViewer extends JPanel implements LogListener, LogNameListener {
     private static JTextField messageSearchText;
     private static List<Log> logs = new ArrayList<>();
     private static LogTableModel logTableModel;
-    private static LogNameFilter logNameFilter = new LogNameFilter("");
+    private static LogNamesFilter logNamesFilter = new LogNamesFilter(List.of(""));
     private static Predicate<Log> logMessageFilter = new LogQueryFilter("");
     private final Settings settings;
     private JButton clearButton;
@@ -176,7 +176,7 @@ public class LogViewer extends JPanel implements LogListener, LogNameListener {
     }
 
     private static void refreshLogs() {
-        logTableModel.setLogs(logs.stream().filter(logNameFilter.and(logMessageFilter)).toList());
+        logTableModel.setLogs(logs.stream().filter(logNamesFilter.and(logMessageFilter)).toList());
     }
 
     public LogTableModel getLogTableModel() {
@@ -235,8 +235,8 @@ public class LogViewer extends JPanel implements LogListener, LogNameListener {
     }
 
     @Override
-    public void logNameChanged(String logName) {
-        logNameFilter = new LogNameFilter(logName);
+    public void logNameChanged(List<String> logName) {
+        logNamesFilter = new LogNamesFilter(logName);
         refreshLogs();
     }
 

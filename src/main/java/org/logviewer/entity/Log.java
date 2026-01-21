@@ -1,7 +1,9 @@
 package org.logviewer.entity;
 
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.intellij.openapi.project.Project;
 import lombok.*;
 
 import java.util.HashMap;
@@ -28,6 +30,9 @@ public class Log {
     private String loggerName;
 
     private String message;
+
+    @JsonIgnore
+    private Project project;
 
     // Pour stocker tous les champs non mappés
     private Map<String, Object> additional = new HashMap<>();

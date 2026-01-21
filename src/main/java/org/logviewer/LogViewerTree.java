@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class LogViewerTree extends JPanel implements LogListener {
         setMinimumSize(new Dimension(200, 100));
         setPreferredSize(new Dimension(200, 100));
         add(getTree(), BorderLayout.CENTER);
+
     }
 
     public JTree getTree() {
@@ -46,7 +48,11 @@ public class LogViewerTree extends JPanel implements LogListener {
             tree = new Tree();
             treeModel = new MyTreeModel();
             tree.setModel(treeModel);
-            tree.addTreeSelectionListener(e -> listeners.forEach((l) -> l.logNameChanged(convert(e.getPath()))));
+            tree.addTreeSelectionListener(e -> listeners.forEach((l) -> {
+                TreePath[] paths = tree.getSelectionPaths();
+                l.logNameChanged(Arrays.stream(paths).map(this::convert).toList());
+            }));
+            tree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
         }
         return tree;
     }

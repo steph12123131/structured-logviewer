@@ -72,6 +72,7 @@ public class LogTableModel extends AbstractTableModel implements LogTagListSelec
             case "level" -> logs.get(rowIndex).getLevel();
             case "time" -> logs.get(rowIndex).getTimestamp();
             case "message" -> logs.get(rowIndex).getMessage();
+            case "logger_name" -> logs.get(rowIndex).getLoggerName();
             default -> null;
         };
 

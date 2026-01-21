@@ -20,18 +20,30 @@ import java.util.List;
 
 public class LogViewerTable extends JXTable {
 
-    private final List<LogTableListener> listeners=new ArrayList<>();
+    private final List<LogTableListener> listeners = new ArrayList<>();
+
     public void addLogTableListener(LogTableListener listener) {
         listeners.add(listener);
     }
+
     public void removeLogTableListener(LogTableListener listener) {
         listeners.remove(listener);
     }
+
+    public LogViewerTableContextMenu getContextMenu() {
+        if (contextMenu == null) {
+            contextMenu = new LogViewerTableContextMenu();
+        }
+        return contextMenu;
+    }
+
+    private LogViewerTableContextMenu contextMenu;
+
     public LogViewerTable() {
 
 
         ToolTipManager.sharedInstance().registerComponent(this);
-        putClientProperty("useDTCRColorMemoryHack",false);
+        putClientProperty("useDTCRColorMemoryHack", false);
         // Ajout d'un listener pour capter les double-clics
         addMouseListener(new MouseAdapter() {
             @Override
@@ -41,8 +53,8 @@ public class LogViewerTable extends JXTable {
                     int col = columnAtPoint(e.getPoint());
                     if (row >= 0 && col >= 0) {
                         Object value = getValueAt(row, col);
-                        String colName=getModel().getColumnName(col);
-                        listeners.forEach(l -> l.logTagValueDoubleClicked(Arrays.stream(colName.split("\\.")).toList(),value));
+                        String colName = getModel().getColumnName(col);
+                        listeners.forEach(l -> l.logTagValueDoubleClicked(Arrays.stream(colName.split("\\.")).toList(), value));
 
                     }
                 }
@@ -81,7 +93,38 @@ public class LogViewerTable extends JXTable {
                 return comp;
             }
         });
+
+        addMouseListener(
+                new MouseAdapter() {
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        displayMenuContextuel(e);
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        displayMenuContextuel(e);
+                    }
+
+                    private void displayMenuContextuel(MouseEvent e) {
+                        if (e.isPopupTrigger()) {
+                            int row = rowAtPoint(e.getPoint());
+                            int column = columnAtPoint(e.getPoint());
+                            getContextMenu().setValue(getModel().getValueAt(row, column));
+                            getContextMenu().setProject(((LogTableModel) getModel()).getLogs().get(row).getProject());
+                            if (row >= 0 && row < getRowCount()) {
+                                setRowSelectionInterval(row, row);
+                            }
+
+                            // Afficher le menu
+                            getContextMenu().show(e.getComponent(), e.getX(), e.getY());
+                        }
+                    }
+                }
+        );
     }
+
     @Override
     public String getToolTipText(@NotNull MouseEvent event) {
         int row = rowAtPoint(event.getPoint());

@@ -31,7 +31,7 @@ public class ConsoleWatcher implements Disposable {
 
     public ConsoleWatcher(Project project) {
         this.project = project;
-        this.consumer = new LogJsonConsumer(this::fireLog);
+        this.consumer = new LogJsonConsumer(project, this::fireLog);
 
         // Créer la connexion et l'enregistrer pour disposal
         this.connection = project.getMessageBus().connect();

@@ -25,14 +25,14 @@ import java.util.List;
 public class LogViewerSettings implements PersistentStateComponent<LogViewerSettings>, Settings {
 
     public List<LogTag> getColumns() {
-        log.info(""+ columns);
+        log.info("" + columns);
         return columns;
     }
 
     @Override
     public void clear() {
         getColumns().clear();
-        getColumns().addAll(List.of(LogTag.fromStringPath("time"), LogTag.fromStringPath("level"), LogTag.fromStringPath("message")));
+        getColumns().addAll(List.of(LogTag.fromStringPath("time"), LogTag.fromStringPath("logger_name"), LogTag.fromStringPath("level"), LogTag.fromStringPath("message")));
     }
 
     // Vos propriétés de configuration

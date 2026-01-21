@@ -4,15 +4,16 @@ import org.logviewer.entity.Log;
 import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 @AllArgsConstructor
-public class LogNameFilter implements Predicate<Log> {
-    private String name;
+public class LogNamesFilter implements Predicate<Log> {
+    private List<String> names;
 
     @Override
     public boolean test(Log log) {
-        return log.getLoggerName().startsWith(name);
+        return names.stream().anyMatch(name -> log.getLoggerName().startsWith(name));
     }
 
     @Override
