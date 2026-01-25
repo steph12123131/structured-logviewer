@@ -4,6 +4,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
+import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.logviewer.entity.LogTag;
 import lombok.Getter;
@@ -41,9 +42,8 @@ public class LogViewerSettings implements PersistentStateComponent<LogViewerSett
     private List<Integer> columnWidths = new ArrayList<>();
 
     // Singleton pour récupérer l'instance
-    public static LogViewerSettings getInstance() {
-        return ApplicationManager.getApplication()
-                .getService(LogViewerSettings.class);
+    public static LogViewerSettings getInstance(@NotNull Project project) {
+        return project.getService(LogViewerSettings.class);
     }
 
     @Nullable

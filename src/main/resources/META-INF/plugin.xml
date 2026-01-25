@@ -29,7 +29,7 @@
         <projectService serviceImplementation="org.logviewer.ScratchFileService"/>
         <toolWindow factoryClass="org.logviewer.LogViewerToolWindowFactory" id="logviewer-tool"/>
         <postStartupActivity implementation="org.logviewer.LogViewerStartupActivity"/>
-        <applicationService
+        <projectService
                 serviceImplementation="org.logviewer.LogViewerSettings"/>
     </extensions>
 
