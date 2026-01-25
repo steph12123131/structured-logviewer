@@ -29,6 +29,9 @@ public class Log {
     @JsonProperty("logger_name")
     private String loggerName;
 
+    @JsonProperty("stack_trace")
+    private String stackTrace;
+
     private String message;
 
     @JsonIgnore

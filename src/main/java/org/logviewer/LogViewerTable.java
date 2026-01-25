@@ -111,6 +111,9 @@ public class LogViewerTable extends JXTable {
                         if (e.isPopupTrigger()) {
                             int row = rowAtPoint(e.getPoint());
                             int column = columnAtPoint(e.getPoint());
+                            Log log = ((LogTableModel) getModel()).getLogs().get(row);
+                            getContextMenu().setStackTrace(log.getStackTrace());
+
                             getContextMenu().setValue(getModel().getValueAt(row, column));
                             getContextMenu().setProject(((LogTableModel) getModel()).getLogs().get(row).getProject());
                             if (row >= 0 && row < getRowCount()) {
