@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.intellij.openapi.ui.Splitter;
 import com.intellij.ui.OnePixelSplitter;
 import org.logviewer.entity.Log;
 import org.logviewer.entity.LogTag;
@@ -62,12 +63,15 @@ public class LogViewer extends JPanel implements LogListener, LogNameListener {
 
     public LogViewer(int limit, Settings settings) {
         super(new BorderLayout());
+        OnePixelSplitter verticalSplitter = new OnePixelSplitter(false);
+        verticalSplitter.setDividerPositionStrategy(Splitter.DividerPositionStrategy.KEEP_FIRST_SIZE);
         this.settings = settings;
         if (settings.getColumns().isEmpty()) {
             settings.clear();
         }
         this.limit = limit;
-        this.add(new JScrollPane(getTable()), BorderLayout.CENTER);
+        this.add(verticalSplitter, BorderLayout.CENTER);
+        verticalSplitter.setSecondComponent(new JScrollPane(getTable()));
         clearButton = new JButton("Clear");
         clearSettingsButton = new JButton("Clear Settings");
         clearButton.addActionListener((e) -> {
@@ -92,7 +96,8 @@ public class LogViewer extends JPanel implements LogListener, LogNameListener {
         OnePixelSplitter splitter = new OnePixelSplitter(true);
         splitter.setFirstComponent(getTree());
         splitter.setSecondComponent(new JScrollPane(getTagList()));
-        this.add(splitter, BorderLayout.LINE_START);
+        verticalSplitter.setFirstComponent(splitter);
+        verticalSplitter.setProportion(0.25f);
 
 
         if (!settings.getColumnWidths().isEmpty()) {
