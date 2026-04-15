@@ -71,41 +71,13 @@ public class LogJsonConsumer implements Consumer<String> {
                     buffer.append(c);
                 }
 
-
                 if (c == '}') {
                     depth--;
                     if (depth == 0) {
                         flush(); // ← flush immédiatement après le '}' final
                     }
                 }
-
-
-               /*
-               if (depth == 0) {
-                   depthTimeStamp = System.currentTimeMillis();
-                   flush();
-               }
-               if (c == '{') {
-                   depth++;
-               }
-
-
-               if (depth > 0) {
-                   buffer.append(c);
-               }
-
-
-               if (c == '}') {
-                   depth--;
-               }
-
-
-                */
             }
-
-
-
-
         }
     }
 
