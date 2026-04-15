@@ -15,7 +15,7 @@ dependencies {
 }
 
 group = "org.logviewer"
-version = "2026.1.25"
+version = "2026.4.15"
 
 repositories {
     mavenCentral()
