@@ -117,12 +117,9 @@ public class ConsoleWatcher implements Disposable {
 
     @Override
     public void dispose() {
-        // Nettoyer la connexion au MessageBus
         connection.disconnect();
-
-        // Vider la liste des listeners
+        consumer.close();
         listeners.clear();
-
         System.out.println("ConsoleWatcher disposé pour le projet: " + project.getName());
     }
 }

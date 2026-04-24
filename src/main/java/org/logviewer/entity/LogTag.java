@@ -15,9 +15,6 @@ import java.util.Objects;
 public class LogTag implements Comparable<LogTag> {
 
     @Builder.Default
-    private boolean activate = false;
-
-    @Builder.Default
     private List<String> path = new ArrayList<>();
 
     @Override
@@ -50,7 +47,6 @@ public class LogTag implements Comparable<LogTag> {
     @Override
     public String toString() {
         return "LogTag{" +
-                "activate=" + activate +
                 ", path=" + path +
                 '}';
     }

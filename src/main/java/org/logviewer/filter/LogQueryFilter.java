@@ -18,7 +18,7 @@ public class LogQueryFilter implements Predicate<Log> {
 
     @Override
     public boolean test(Log log) {
-        return log.getMessage().contains(name);
+        return log.getMessage() == null || log.getMessage().contains(name);
     }
 
     @Override

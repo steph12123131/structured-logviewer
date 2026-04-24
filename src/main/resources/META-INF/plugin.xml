@@ -30,7 +30,7 @@
         <toolWindow factoryClass="org.logviewer.LogViewerToolWindowFactory" id="logviewer-tool"/>
         <postStartupActivity implementation="org.logviewer.LogViewerStartupActivity"/>
         <projectService
-                serviceImplementation="org.logviewer.LogViewerSettings"/>
+                serviceImplementation="org.logviewer.settings.LogViewerSettings"/>
     </extensions>
 
 </idea-plugin>

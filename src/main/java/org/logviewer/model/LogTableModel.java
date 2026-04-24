@@ -1,6 +1,6 @@
 package org.logviewer.model;
 
-import org.logviewer.Settings;
+import org.logviewer.settings.Settings;
 import org.logviewer.entity.Log;
 import org.logviewer.entity.LogTag;
 import org.logviewer.listener.LogTagListSelectionListener;
@@ -18,12 +18,12 @@ public class LogTableModel extends AbstractTableModel implements LogTagListSelec
 
     public LogTableModel(Settings settings) {
         this.settings = settings;
-        this.columns.addAll(settings.getColumns());
+        this.columns.addAll(settings.getTags());
     }
 
     public void clear() {
         this.columns.clear();
-        this.columns.addAll(settings.getColumns());
+        this.columns.addAll(settings.getTags());
         fireTableStructureChanged();
     }
 

@@ -13,7 +13,7 @@ public class LogNamesFilter implements Predicate<Log> {
 
     @Override
     public boolean test(Log log) {
-        return names.stream().anyMatch(name -> log.getLoggerName().startsWith(name));
+        return names.stream().anyMatch(name -> log.getLoggerName() == null || log.getLoggerName().startsWith(name));
     }
 
     @Override
