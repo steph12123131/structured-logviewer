@@ -112,11 +112,19 @@ public class LogJsonConsumer implements Consumer<String> {
         }
     }
 
+    private boolean invalid(Log log)
+    {
+        return log.getTimestamp()!=null && log.getLoggerName()!=null  && log.getLevel()!=null;
+    }
+
     private void dispatchNode(JsonNode node) {
         try {
             Log logEntry = LogHelper.decode(
                     new ByteArrayInputStream(node.toString().getBytes(StandardCharsets.UTF_8))
             );
+            if (invalid(logEntry)) {
+                return;
+            }
             logEntry.setProject(project);
             handler.handle(logEntry);
         } catch (IOException e) {
