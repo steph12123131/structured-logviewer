@@ -114,7 +114,7 @@ public class LogJsonConsumer implements Consumer<String> {
 
     private boolean invalid(Log log)
     {
-        return log.getTimestamp()!=null && log.getLoggerName()!=null  && log.getLevel()!=null;
+        return log.getTimestamp()==null && log.getLoggerName()==null  && log.getLevel()==null;
     }
 
     private void dispatchNode(JsonNode node) {
