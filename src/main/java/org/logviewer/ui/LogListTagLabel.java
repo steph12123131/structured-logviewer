@@ -30,12 +30,15 @@ public class LogListTagLabel extends RoundedTagLabel {
 
         if (text != null && text.length()> LIMIT) {
             super.setText(text.substring(0, LIMIT)+" ...");
+            setVisible(true);
         }
         else if (text  == null) {
             super.setText("\uD83D\uDEAB");
+            setVisible(false);
         }
         else  {
             super.setText(text);
+            setVisible(true);
         }
 
     }
